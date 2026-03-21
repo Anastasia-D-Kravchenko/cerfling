@@ -1,4 +1,4 @@
-# LinkedIn Certification Bot (GUI Edition) 🤖🎓
+# LinkedIn Certification Bot (GUI Edition)
 
 A fully interactive desktop application that reads PDF certificates from a local folder, uses AI Vision to extract the data, and automatically adds them to your LinkedIn profile.
 
@@ -29,7 +29,7 @@ You also need a **free API Key from Groq** to process the images:
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 1. Open your terminal or command prompt in the project folder.
 2. Run the application:
@@ -50,7 +50,7 @@ If this is your first time running the app, Chrome will open to the LinkedIn log
 
 ---
 
-## ⚠️ Notes on Headless Mode
+## Notes on Headless Mode
 The app includes a checkbox to run "Headless" (invisible). 
 * **Warning:** LinkedIn's anti-bot detection is highly aggressive against headless browsers. If the script fails to find elements or times out, it is likely because LinkedIn is throwing an invisible Captcha. 
 * It is recommended to run the app with the browser visible so you can watch the magic happen!
