@@ -1,41 +1,45 @@
-# The **LinkedIn Certification & Project Bot (GUI Edition)** 
-is a robust automation tool designed to bridge the gap between your local professional achievements and your online LinkedIn profile. By combining GitHub API data, local PDF parsing, and Groq's high-speed Llama models, this application automates the tedious manual entry of professional milestones.
+# LinkedIn University Course Importer (GUI Edition)
+
+The **LinkedIn University Course Importer** is a specialized automation tool designed to bridge the gap between your academic curriculum and your professional LinkedIn profile. By leveraging high-speed Llama models via the Groq API and intelligent browser automation, this application transforms a raw university curriculum PDF into structured professional entries on your profile.
 
 ---
 
-### 🌟 Advanced Multi-Core Logic
-The application is built on a two-pronged automation strategy:
+### 🌟 Intelligent Automation Strategy
+The application operates through a streamlined three-phase pipeline:
 
-1.  **Certification Automated Entry:**
-    * **In-Memory Parsing:** Uses `PyMuPDF` to convert local PDF certificates into images directly in RAM, ensuring no temporary image files clutter your machine.
-    * **Vision AI Extraction:** Leverages `Groq` Vision models to instantly read certificates and generate structured JSON data including course names, issuing organizations, and dates.
-2.  **GitHub Project Sync:**
-    * **Deep Context Extraction:** Instead of relying on short repository names, the bot fetches your `README.md` files from GitHub to provide Groq with full project context.
-    * **AI Copywriting:** Automatically transforms basic repo metadata into professional, 2000-character LinkedIn summaries that highlight technical impact.
-    * **Dynamic Skill Mapping:** Intelligently maps repository languages and documentation to LinkedIn’s internal skill taxonomy.
+1.  **AI Curriculum Parsing:** * Uses `PyMuPDF` (`fitz`) to extract text from complex university curriculum documents.
+    * Leverages `Groq` AI (Llama 3.3 70B) to parse raw text into structured JSON data, identifying specific Course Names and Course Numbers.
+2.  **Browser Stealth & Security:**
+    * Utilizes `undetected_chromedriver` to bypass aggressive automated browser detection during the injection process.
+    * Maintains a persistent Chrome profile (`linkedin_chrome_profile`) to securely store authentication cookies, preventing the need for repeated logins.
+3.  **Automated Field Injection:**
+    * Automatically navigates to LinkedIn's hidden "Add Course" entry points.
+    * Precisely fills Course Names, Numbers, and handles the dynamic "Associated with" dropdown to link the courses to your specific degree.
 
 ---
 
 ### 🛠 Technical Architecture
-* **Interface:** Powered by `tkinter`, providing a clean desktop GUI that handles complex background threading to prevent application freezing during browser automation.
-* **Persistence:** A local `config.json` system stores your API keys and GitHub tokens securely, allowing for one-click resumes.
-* **Browser Stealth:** Utilizes `undetected_chromedriver` to bypass automated browser detection, allowing the script to navigate LinkedIn's dynamic modals as if it were a human user.
-* **Logging:** A built-in virtual terminal ("Activity Log") provides real-time feedback on AI extraction and browser steps.
+* **Multithreaded Interface:** Powered by `tkinter`, the GUI runs the automation engine in a separate background thread. This ensures the desktop application remains responsive and does not freeze while the browser is active.
+* **Virtual Console:** A built-in "Activity Log" uses a custom `PrintRedirector` to funnel real-time system status and AI extraction logs directly into the window.
+* **Local Persistence:** A `course_config.json` system automatically remembers your Groq API keys, PDF paths, and degree details for one-click resumes.
 
 ---
 
-### 🚀 Setup & Dependency Management
-To initialize your environment, install the necessary library ecosystem:
+### 🚀 Setup & Execution
+Install the necessary library ecosystem via your terminal:
 ```bash
-pip install groq PyMuPDF selenium undetected-chromedriver requests
+pip install groq PyMuPDF selenium undetected-chromedriver
 ```
 
-#### **Core Configuration Requirements:**
-* **Groq API:** Obtain a high-speed inference key at [console.groq.com](https://console.groq.com).
-* **LinkedIn Authentication:** The bot uses a persistent Chrome profile (`linkedin_chrome_profile`). On your first run, the GUI will pause and prompt you to log in manually; subsequent runs will remain authenticated.
+#### **How to Run:**
+1.  **Launch:** Execute `python app.py` to open the GUI.
+2.  **Configure:** * Enter your **Groq API Key** (obtainable at [console.groq.com](https://console.groq.com)).
+    * **Browse** and select your curriculum PDF.
+    * Input the **Degree Text** exactly as it appears in your LinkedIn profile dropdown (e.g., "Student at Polish-Japanese Academy").
+3.  **Authenticate:** On the first run, a Chrome window will appear for manual LinkedIn login. Once you see your feed, click "OK" on the application popup to begin the batch import.
 
 ---
 
-### ⚠️ Performance & Safety Notes
-* **Headless vs. Visible:** While the app supports "Headless" mode for background work, running in visible mode is recommended for your first batch to handle LinkedIn's aggressive bot-detection challenges.
-* **API Throttling:** For GitHub users with high repository counts (60+), the bot includes a Personal Access Token field to bypass GitHub's 60-request-per-hour anonymous limit.
+### ⚠️ Performance Notes
+* **Anti-Bot Safety:** The bot includes a 4-second delay between course entries to simulate human behavior and avoid rate-limiting.
+* **Headless Warning:** Headless mode is disabled by default to ensure the bot can successfully navigate LinkedIn’s dynamic modals and handle potential security checks.
