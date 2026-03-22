@@ -1,56 +1,41 @@
-# LinkedIn Certification Bot (GUI Edition)
-
-A fully interactive desktop application that reads PDF certificates from a local folder, uses AI Vision to extract the data, and automatically adds them to your LinkedIn profile.
-
-It features a clean `tkinter` graphical interface, saves your configurations locally, and processes your PDFs without leaving junk files on your machine.
-
-## Features
-* **Interactive UI:** No need to edit code. Just paste your API key, browse for your folder, and click Start.
-* **AI Data Extraction:** Uses Groq Vision (Llama) to instantly read PDF certificates and convert them to structured JSON data (Name, Date, Organization, Skills).
-* **In-Memory Processing:** Converts PDFs to images entirely in RAM using PyMuPDF.
-* **Two-Phase LinkedIn Injection:** * Phase 1: Pre-fills the LinkedIn URL API to create the base certificate.
-  * Phase 2: Automatically re-opens the entry to link the Company Logo and select related Skills from LinkedIn's dynamic dropdowns.
-* **Anti-Bot Stealth:** Uses `undetected_chromedriver` to bypass LinkedIn's strict automated browser detection.
+# The **LinkedIn Certification & Project Bot (GUI Edition)** 
+is a robust automation tool designed to bridge the gap between your local professional achievements and your online LinkedIn profile. By combining GitHub API data, local PDF parsing, and Groq's high-speed Llama models, this application automates the tedious manual entry of professional milestones.
 
 ---
 
-## 🛠 Prerequisites
+### 🌟 Advanced Multi-Core Logic
+The application is built on a two-pronged automation strategy:
 
-You will need **Python 3.8+** installed on your system.
+1.  **Certification Automated Entry:**
+    * **In-Memory Parsing:** Uses `PyMuPDF` to convert local PDF certificates into images directly in RAM, ensuring no temporary image files clutter your machine.
+    * **Vision AI Extraction:** Leverages `Groq` Vision models to instantly read certificates and generate structured JSON data including course names, issuing organizations, and dates.
+2.  **GitHub Project Sync:**
+    * **Deep Context Extraction:** Instead of relying on short repository names, the bot fetches your `README.md` files from GitHub to provide Groq with full project context.
+    * **AI Copywriting:** Automatically transforms basic repo metadata into professional, 2000-character LinkedIn summaries that highlight technical impact.
+    * **Dynamic Skill Mapping:** Intelligently maps repository languages and documentation to LinkedIn’s internal skill taxonomy.
 
-Install the required dependencies via terminal:
+---
+
+### 🛠 Technical Architecture
+* **Interface:** Powered by `tkinter`, providing a clean desktop GUI that handles complex background threading to prevent application freezing during browser automation.
+* **Persistence:** A local `config.json` system stores your API keys and GitHub tokens securely, allowing for one-click resumes.
+* **Browser Stealth:** Utilizes `undetected_chromedriver` to bypass automated browser detection, allowing the script to navigate LinkedIn's dynamic modals as if it were a human user.
+* **Logging:** A built-in virtual terminal ("Activity Log") provides real-time feedback on AI extraction and browser steps.
+
+---
+
+### 🚀 Setup & Dependency Management
+To initialize your environment, install the necessary library ecosystem:
 ```bash
-pip install groq PyMuPDF selenium undetected-chromedriver
+pip install groq PyMuPDF selenium undetected-chromedriver requests
 ```
 
-You also need a **free API Key from Groq** to process the images:
-1. Go to [console.groq.com](https://console.groq.com)
-2. Create an account and generate an API key.
+#### **Core Configuration Requirements:**
+* **Groq API:** Obtain a high-speed inference key at [console.groq.com](https://console.groq.com).
+* **LinkedIn Authentication:** The bot uses a persistent Chrome profile (`linkedin_chrome_profile`). On your first run, the GUI will pause and prompt you to log in manually; subsequent runs will remain authenticated.
 
 ---
 
-##  How to Run
-
-1. Open your terminal or command prompt in the project folder.
-2. Run the application:
-   ```bash
-   python app.py
-   ```
-3. **Fill out the UI:**
-   * Paste your Groq API Key.
-   * Click "Browse..." to select the folder containing your PDF certificates.
-   * Add your GitHub raw URL base (e.g., `https://github.com/Username/Repo/blob/main/certs/`).
-4. Click **START AUTOMATION**.
-
-### The First Run (Authentication)
-If this is your first time running the app, Chrome will open to the LinkedIn login page. 
-* The app will pause for 30 seconds.
-* Log in manually and solve any security captchas.
-* The app saves your session securely to a local `linkedin_chrome_profile` folder. You will not need to log in again on future runs!
-
----
-
-## Notes on Headless Mode
-The app includes a checkbox to run "Headless" (invisible). 
-* **Warning:** LinkedIn's anti-bot detection is highly aggressive against headless browsers. If the script fails to find elements or times out, it is likely because LinkedIn is throwing an invisible Captcha. 
-* It is recommended to run the app with the browser visible so you can watch the magic happen!
+### ⚠️ Performance & Safety Notes
+* **Headless vs. Visible:** While the app supports "Headless" mode for background work, running in visible mode is recommended for your first batch to handle LinkedIn's aggressive bot-detection challenges.
+* **API Throttling:** For GitHub users with high repository counts (60+), the bot includes a Personal Access Token field to bypass GitHub's 60-request-per-hour anonymous limit.
